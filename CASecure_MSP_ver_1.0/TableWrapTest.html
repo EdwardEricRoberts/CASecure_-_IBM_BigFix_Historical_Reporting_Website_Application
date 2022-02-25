@@ -1,0 +1,461 @@
+<!-- <!DOCTYPE html> -->
+<html>
+<head>
+<title>Table Wrap Test</title>
+
+
+<?php require 'includes/header2.php'; ?>
+
+<?php require 'includes/alert.php'; ?>
+
+<?php require 'includes/navigation.php'; ?>
+
+<style>
+	#table-wrapper {
+		position:relative;
+		font-size:9pt;
+		font-family:sans-serif;
+		margin-left:20px;
+		
+	}
+	#table-scroll {
+		height:300px;
+		width:900px;
+		overflow:auto; 
+		margin-top:20px;
+		font-size:9pt;
+	}
+	#table-wrapper table {
+		width:100px;
+		font-size:9pt;
+	}
+
+	#table-wrapper table thead th .text {
+		position:absolute;   
+		top:-20px;
+		z-index:2;
+		height:20px;
+		width:35%;
+		border:1px solid red;
+		font-size:9pt;
+	}
+	
+	.grid-container {
+		display: grid;
+		grid-template-columns: auto auto;
+		font-size:9pt;
+	}
+	
+</style>
+<br>
+<div class="span-5 last">
+
+	<span class="breadcrumbs">You are here: Dashboards</span><br>
+</div>
+	<br>
+	<div class="prepend-5 span-5">
+	 <!--<div class="divtester">hello</div> -->
+		<div class="pagetitle2">Dashboards</div>
+	</div>
+<br><br>
+
+
+
+<script>
+$(document).ready( function () {
+    $('#inventoryTable').dataTable();
+} );
+</script>
+
+
+
+<script>
+
+document.getElementById("dashboardNav").className = "current-menu-item";
+
+/*
+	#table-wrapper table * {
+		background: #C0C0C0;
+		color:black;
+		font-size:9pt;
+	}
+*/
+
+	var chartHeight = 250;
+	var chartWidth = 450;
+	
+//		background:yellow;
+	var curUser = "eer";
+	var password = "AllieCat4";
+	var server = "ibmendpoint.internal.cassevern.com";
+	// HTTP encode periods so as to not ruin the URL for the AJAX call
+	server = server.replace(/\./g, "%2E");
+	
+	// AJAX call for the Inventory Report
+	var inventoryProxy = "proxies/InventoryReport.php?user=" + curUser + "&pass=" + password + "&serv=" + server;
+	xmlTableParser(inventoryProxy, "#inventoryTable");
+	
+	// AJAX call for the Source Severity Report
+	//var sourceSeverityProxy = "proxies/SourceSeverityReport.php?user=" + curUser + "&pass=" + password + "&serv=" + server;
+	//xmlTableParser(sourceSeverityProxy, "#sourceSeverityTable");
+	
+	// AJAX call for the Post Deployment Report
+	//var postDeploymentProxy = "proxies/PostDeploymentReport.php?user=" + curUser + "&pass=" + password + "&serv=" + server;
+	//xmlTableParser(postDeploymentProxy, "#postDeploymentTable");
+	
+	// AJAX call for the Windows Update Status Report
+	//var windowsUpdateStatusProxy = "proxies/WindowsUpdateStatusReport.php?user=" + curUser + "&pass=" + password + "&serv=" + server;
+	//xmlTableParser(windowsUpdateStatusProxy, "#windowsUpdateStatusTable");
+	
+	// Function performs an AJAX call to a designated API proxy and collects the data into an HTML table
+	function xmlTableParser(proxyURL, tableID) {
+		var request = new XMLHttpRequest();
+		request.open("GET", proxyURL, true);
+		request.send();
+		request.onreadystatechange = function() {
+			if ((this.readyState === 4) && (this.status === 200)) {
+				// Convert the XML document to a string
+				xmlString = this.responseText.toString();
+				// Eliminate the Meta-Query from the <Query> tag in the XML results as it can potentially cause issues when reading the XML code
+				var badQuery = xmlString.substring((parseInt(xmlString.search("Resource"))-1), (parseInt(xmlString.search('Result'))-5));
+				xmlString = xmlString.replace(badQuery, '');
+				// Convert string of XML code back into an XML document
+				var parser = new DOMParser();
+				var xmlDoc = parser.parseFromString(xmlString,"text/xml");
+				// Collect the number of rows (<Tuple> tags) and columns (<Answer> tags per <Tuple> tag) of data from the XML document
+				var tupleCount = xmlDoc.getElementsByTagName("Tuple").length;
+				var columnCount = xmlDoc.getElementsByTagName("Answer").length / tupleCount;
+				// Build the HTML Table's contents from the data in the XML document
+				var rowHTML = "";
+				var resultsTable = [];
+				
+				for (var i = 0; i < tupleCount; i++) {
+					rowHTML = '<tr>';
+					for (var j = 0; j < columnCount; j++) {
+						if (tableID == "#inventoryTable") {
+							if (j == 0 || j == 4) continue;
+						/*	if (j == 2) {
+								if ((xmlDoc.getElementsByTagName("Answer")[((columnCount*i)+j)].childNodes[0].nodeValue).substring(0,3) == "Win") {
+									rowHTML += 
+										'<td nowrap>' + 
+											(xmlDoc.getElementsByTagName("Answer")[((columnCount*i)+j)].childNodes[0].nodeValue) + //.substring(0, indexOf(" "))
+											//'<br>' +
+											//(xmlDoc.getElementsByTagName("Answer")[((columnCount*i)+j)].childNodes[0].nodeValue).substring(indexOf(" "), (xmlDoc.getElementsByTagName("Answer")[((columnCount*i)+j)].childNodes[0].nodeValue).length) +
+										'</td>';
+									//alert((xmlDoc.getElementsByTagName("Answer")[((columnCount*i)+j)].childNodes[0].nodeValue).substring(0, indexOf(" ")));
+								}
+								else {
+									rowHTML += '<td>' + (xmlDoc.getElementsByTagName("Answer")[((columnCount*i)+j)].childNodes[0].nodeValue) + '</td>';
+								}
+							}
+						*/	if(j == 2 || j == 5) {
+								rowHTML += '<td nowrap>' + (xmlDoc.getElementsByTagName("Answer")[((columnCount*i)+j)].childNodes[0].nodeValue) + '</td>';
+							}
+							else {
+								rowHTML += '<td>' + xmlDoc.getElementsByTagName("Answer")[((columnCount*i)+j)].childNodes[0].nodeValue + '</td>';
+							}
+						}
+						else {
+							rowHTML += '<td>' + xmlDoc.getElementsByTagName("Answer")[((columnCount*i)+j)].childNodes[0].nodeValue + '</td>';
+						}
+					}
+					rowHTML += '</tr>';
+					resultsTable.prototype.push(rowHTML);
+					//$(tableID).append(rowHTML);
+					
+				}
+				var myResults = JSON.stringify(resultsTable);
+				var tableOutput = myResults.replace(/,/gi, "").replace(/"/gi, "").replace("[", "").replace("]", "");
+				document.getElementById("resultsHere").innerHTML=tableOutput;
+				
+				//$(inventoryTable).append(resultsTable);
+				// Parse Source Severity HTML table data into JavaScript Array to create charts with
+				//if (tableID == "#sourceSeverityTable") {
+				//	var severityArray = [0,0,0,0]
+				//	var severityTable = document.getElementById('sourceSeverityTable');
+					
+				//	var severityRows = severityTable.rows, 
+				//		severityRowCount = severityRows.length, 
+				//		severityCells;
+				//	var currentSeverity;
+					
+				//	for (var r = 1; r < severityRowCount; r++) {
+				//		severityCells = severityRows[r].cells;
+				//		currentSeverity = severityCells[3].innerHTML;
+				//		if (currentSeverity == "Critical")
+				//			severityArray[0] += 1;
+				//		else if (currentSeverity == "Important" || currentSeverity == "High")
+				//			severityArray[1] += 1;
+				//		else if (currentSeverity == "Moderate" || currentSeverity == "Medium")
+				//			severityArray[2] += 1;
+				//		else if (currentSeverity == "Low")
+				//			severityArray[3] += 1;
+				//	}
+					//alert(severityArray);
+					
+					//CanvasJS.addColorSet("severityShades",
+					//	[//colorSet Array
+					//		"#FF0000", 
+					//		"#FF8000",
+					//		"#FFD500",
+					//		"#66B2FF"
+					//	]
+					//);
+					//var chart2 = new CanvasJS.Chart("sourceSeverityChart", {
+					//	colorSet: "severityShades",
+					//	title:{
+					//		text: "Source Severity of Patches",
+					//		//padding: 5
+					//	},
+					//	legend: {
+					//		horizontalAlign: "center",
+					//		verticalAlign: "bottom",
+					//	},
+					//	height: chartHeight,
+					//	width: chartWidth,
+					//	backgroundColor: "#ebedf2",
+					//	data: [              
+					//	{
+							// Change type to "line", "doughnut", "splineArea", etc. "column"
+					//		type: "pie",
+				//			startAngle: 270,
+				//			indexLabelPlacement: "outside", 
+				//			showInLegend: true,
+				//			dataPoints: [
+				//				{ label: "Critical",  y: severityArray[0], name: "Critical"  },
+				//				{ label: "Important",   y: severityArray[1], name: "Important"  },
+				//				{ label: "Moderate",  y: severityArray[2], name: "Moderate"  },
+				//				{ label: "Low",  y: severityArray[3], name: "Low"  },
+				//			]
+				//		}
+				//		]
+				//	});
+					//chart2.render();
+					//$("#sLoad").remove();
+				//	$("#sourceSeverityChart").append('<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><a href="WindowsUpdateStatusReport.php">See Full Report</a>');
+				//}
+				
+				// Parse Post Deployment HTML table data into JavaScript Array to create charts with
+				//else if (tableID == "#postDeploymentTable") {
+				//	var deploymentArray = [0,0,0];
+				//	var deploymentTable = document.getElementById('postDeploymentTable');
+					
+				//	var deploymentRows = deploymentTable.rows, 
+				//		deploymentRowCount = deploymentRows.length,
+				//		deploymentCells;
+					
+				//	for (var r = 1; r < deploymentRowCount; r++) {
+				//		deploymentCells = deploymentRows[r].cells;
+				//		deploymentArray[0] += isNaN(deploymentCells[6].innerHTML) ? 0 : parseInt(deploymentCells[6].innerHTML);
+				//		deploymentArray[1] += isNaN(deploymentCells[7].innerHTML) ? 0 : parseInt(deploymentCells[7].innerHTML);
+				//		deploymentArray[2] += isNaN(deploymentCells[8].innerHTML) ? 0 : parseInt(deploymentCells[8].innerHTML);;
+				//	}
+					//alert(deploymentArray);
+					
+				//	CanvasJS.addColorSet("deploymentShades",
+				//		[//colorSet Array
+				//			"#0000CC",
+				//			"#006600",
+				//			"#FF0000"              
+				//		]
+				//	);
+				//	var chart = new CanvasJS.Chart("postDeploymentChart", {
+				//		colorSet: "deploymentShades",
+				//		title:{
+				//			text: "Compliance of Windows Patches",
+				//			padding: 5
+				//		},
+				//		height: chartHeight,
+				//		width: chartWidth,
+				//		backgroundColor: "#ebedf2",
+				//		data: [              
+				//		{
+				//			// Change type to "line", "doughnut", "splineArea", etc.
+				//			type: "column",
+				//			indexLabelPlacement: "outside", 
+				//			//showInLegend: true,
+				//			dataPoints: [
+				//				{ label: "Applicable Patches",  y: deploymentArray[0], name: "Applicable"  },
+				//				{ label: "Installed Patches",   y: deploymentArray[1], name: "Installed"  },
+				//				{ label: "Outstanding Patches",  y: deploymentArray[2], name: "Outstanding"  },
+				//			]
+				//		}
+				//		]
+				//	});
+				//	chart.render();
+				//	$("#pLoad").remove();
+				//	$("#postDeploymentChart").append('<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><a href="PostDeploymentReport.php">See Full Report</a>');
+				//}
+				
+				// Parse Windows Update Status HTML table data into JavaScript Array to create charts with
+				//else if (tableID == "#windowsUpdateStatusTable") {
+				//	var windowsUpdatesArray = [0,0];
+				//	var windowsUpdatesTable = document.getElementById('windowsUpdateStatusTable');
+					
+				//	var windowsUpdatesRows = windowsUpdatesTable.rows, 
+				//		windowsUpdatesRowCount = windowsUpdatesRows.length, 
+				//		windowsUpdatesCells;
+				//	var currentUpdateState;
+					
+				//	for (var r = 1; r < windowsUpdatesRowCount; r++) {
+				//		windowsUpdatesCells = windowsUpdatesRows[r].cells;
+				//		currentUpdateState = windowsUpdatesCells[5].innerHTML;
+				//		if (currentUpdateState == "Enabled")
+				//			windowsUpdatesArray[1] += 1;
+				//		else
+				//			windowsUpdatesArray[0] += 1;
+				//	}
+				//	//alert(windowsUpdatesArray);
+					
+				//	CanvasJS.addColorSet("statusShades",
+				//		[//colorSet Array
+				//			"#006600", 
+				//			"#FF0000"
+				//		]
+				//	);
+				//	var chart3 = new CanvasJS.Chart("windowsStatusUpdateChart", {
+				//		colorSet: "statusShades",
+				//		title:{
+				//			text: "Status of Windows Updates",
+				//			//padding: 5
+				//		},
+				//		legend: {
+				//			horizontalAlign: "center",
+				//			verticalAlign: "bottom",
+				//		},
+				//		height: chartHeight,
+				//		width: chartWidth,
+				//		backgroundColor: "#ebedf2",
+				//		data: [              
+				//		{
+				//			// Change type to "line", "doughnut", "splineArea", etc. "column"
+				//			type: "pie",
+				//			startAngle: 270,
+				//			indexLabelPlacement: "outside", 
+				//			showInLegend: true,
+				//			dataPoints: [
+				//				{ label: "Disabled",  y: windowsUpdatesArray[0], name: "Disabled"  },
+				//				{ label: "Enabled",   y: windowsUpdatesArray[1], name: "Enabled"  },
+				//			]
+				//		}
+				//		]
+				//	});
+				//	chart3.render();
+				//	$("#wLoad").remove();
+				//	$("#windowsStatusUpdateChart").append('<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><a href="WindowsUpdateStatusReport.php">See Full Report</a>');
+				//}
+				
+				
+				
+				
+				
+			}
+		}
+	}
+	
+	
+	/*
+	function sortTable(n, tableName) {
+		var table, rows, switching, i, x, y, shouldSwitch;
+		table = document.getElementById(tableName);
+		switching = true;
+		while (switching) {
+			switching = false;
+			rows = table.getElementsByTagName("TR");
+			for (i = 1; i < (rows.length - 1); i++) {
+				shouldSwitch = false;
+				x = rows[i].getElementsByTagName("TD")[n];
+				y = rows[i + 1].getElementsByTagName("TD")[n];
+				if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+					shouldSwitch= true;
+					break;
+				}
+			}
+			if (shouldSwitch) {
+				rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+				switching = true;
+			}
+		}
+	}
+	*/
+
+
+
+	
+	//HTMLTableElement.appendChild(document.createElement('tbody'))
+	
+</script>
+<!--
+<div>
+<table class="dashscreensleft">	
+	<tr>
+	<td id="firstSection">
+
+		<div id="table-wrapper">
+			<div id="table-scroll">
+				<table id="inventoryTable">
+					<th style="align:left;">Computer ID</th><th style="align:left;">Computer Name</th><th style="align:left;">Operating System</th><th style="align:left;">IP Address</th><th style="align:left;">CPU</th><th style="align:left;">Last Report Time</th>
+				</table>
+			</div>
+        </div>
+	<br>
+	<br>
+	</td>
+	</tr>
+	<tr>
+	<td id="postDeploymentChart">
+
+	</td>
+	</tr>
+</table>
+
+<table class="dashscreensright">	
+	<tr>
+	<td id="sourceSeverityChart">
+	</td>
+	</tr>
+	<hr>
+	<tr style="position:relative;">
+	<td id="windowsStatusUpdateChart">
+	</td>
+	</tr>
+</table>
+-->
+<br>
+<h4 style=" margin-bottom=-20;">System Inventory</h4>
+<div class="span-24 last">		
+	<!--<div id="table-wrapper">-->
+		<!-- <h3>Inventory</h3> -->
+		<!--<div id="table-scroll">-->
+	
+				<table id="inventoryTable" width="400">
+					<thead>
+						<tr>
+							<!-- <th nowrap style="align:left; ">Computer ID</th> -->
+							<th nowrap style="align:left;">Computer Name</th>
+							<th nowrap style="align:left;">Operating System</th>
+							<th nowrap style="align:left;">IP Addresses</th>
+							<th nowrap style="align:left;">Last Report Time</th>
+						</tr>
+					</thead>
+					<tbody id="resultsHere">
+						
+				    </tbody>
+				</table>
+			
+			
+			
+			
+		<!--</div>-->
+	</div>
+	
+	
+
+
+<!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
+
+
+
+<!-- </div> -->
+
+<?php require 'includes/footer.php'; ?>
