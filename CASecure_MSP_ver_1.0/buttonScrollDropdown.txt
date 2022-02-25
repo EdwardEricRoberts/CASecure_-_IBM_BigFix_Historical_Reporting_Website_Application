@@ -1,0 +1,11 @@
+			<div class="btn-group">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				Select Computer Group <span class="caret"></span>
+				</button>
+	          
+			         <ul id="computerGroupList" class="dropdown-menu scrollable-menu" role="menu">
+					    
+			         </ul>
+		          
+            </nav>
+			</div>
