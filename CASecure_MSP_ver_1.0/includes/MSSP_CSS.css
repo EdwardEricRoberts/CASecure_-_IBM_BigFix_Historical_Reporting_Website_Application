@@ -1,0 +1,313 @@
+/*  LOGIN BOX  */
+
+.login {
+	background-color:#185725;
+	margin:auto;
+	padding:15;
+	height:300px;
+	width:350px;
+	color:fff;
+	font-family:arial, helvetica, sans-serif;
+}
+.loginlogo {
+	margin-left:70px;
+}
+.loginprompttitle {
+	font-size: 16pt;
+	font-weight:bold;
+}
+
+/* TOP BANNER */
+.webportal {
+	position:absolute;
+	margin-right:40px;
+	margin-left:550px;
+	margin-top:30px;
+	color:fff;
+	font-family:arial, helvetica, sans-serif;
+	font-size:18pt;
+}
+
+.banner {
+	background-color:#4f81bd;
+	margin-top:-1px;
+	margin-right:auto;
+	height:110px;
+	width:960px;
+}                
+.logo{
+	margin:20px;
+}
+
+.welcome {
+	position:absolute;
+	margin-right:40px;
+	margin-left:550px;
+	margin-top:60px;
+	color:#9bbb59;
+	font-family:arial, helvetica, sans-serif;
+	font-size:10pt;
+	font-weight:bold;
+}
+
+/* OVERALL BOX  */
+.container{
+	border-style: solid;
+	border-size: 1px;
+	margin:auto;
+	align:center;
+	width: 960;
+}
+
+
+/* ALERT BANNER */
+.alertlock {
+	margin-top: -5px;
+	margin-bottom: -5px;
+	margin-right: 10px;
+}
+
+.alertbox{
+	border-style: solid;
+	border-size: 1px;
+	padding: 15px;
+	margin:5px;
+	width:900px;
+}
+.alerttitle{
+	font-family: arial, helvetica, sans-serif;
+	font-size: 12pt;
+}
+.alertnotice{
+	font-family:arial, helvetica, sans-serif;
+	font-size:10pt;
+}
+.alertdate {
+	font-family:arial, helvetica, sans-serif;
+	font-size:8pt;
+	text-align:right;
+	margin-left:350px;
+	
+}
+
+/* DROPDOWN MENU  */
+
+
+
+
+#primary_nav_wrap
+{
+	margin-top:15px
+}
+
+#primary_nav_wrap ul
+{
+	list-style:none;
+	position:relative;
+	float:left;
+	margin:0;
+	padding:0
+}
+
+#primary_nav_wrap ul a
+{
+	display:block;
+	color:#fff;
+	text-decoration:none;
+	font-weight:700;
+	font-size:12px;
+	line-height:32px;
+	padding:0 15px;
+	font-family:"HelveticaNeue","Helvetica Neue",Helvetica,Arial,sans-serif
+}
+
+#primary_nav_wrap ul li
+{
+	position:relative;
+	float:left;
+	margin:1;
+	padding:0;
+        background:#4f81bd;
+	
+}
+
+#primary_nav_wrap ul li.current-menu-item
+{
+	background:#9bbb59
+}
+
+#primary_nav_wrap ul li:hover
+{
+	background:#9bbb59
+}
+
+#primary_nav_wrap ul ul
+{
+	display:none;
+	position:absolute;
+	top:100%;
+	left:0;
+	background:#4f81bd;
+	padding:0
+}
+
+#primary_nav_wrap ul ul li
+{
+	float:none;
+	width:200px;
+}
+
+#primary_nav_wrap ul ul a
+{
+	line-height:120%;
+	padding:10px 15px;
+
+}
+
+#primary_nav_wrap ul ul ul
+{
+	top:0;
+	left:100%
+}
+
+#primary_nav_wrap ul li:hover > ul
+{
+	display:block
+}
+
+
+/* Dashboards  */
+.dashbox {
+	border: 1px solid black;
+	width: 450px;
+	margin:10px;
+	padding:5px;
+	font-family:arial, helvetica, sans-serif;
+	font-size:10pt;
+	border
+}
+.dashboxtitle
+{
+	font-size:14pt;
+}
+.dashheader {
+	background-color:#9bbb59;
+	color:#fff;
+	font-weight:bold;
+}
+.dashboxsmall {
+	border: 1px solid black;
+	width: 200px;
+	margin:10px;
+	padding:5px;
+	font-family:arial, helvetica, sans-serif;
+	font-size:10pt;
+	border
+}
+.dashboxlong {
+	border: 1px solid black;
+	width: 90%;
+	margin:10px;
+	padding:5px;
+	font-family:arial, helvetica, sans-serif;
+	font-size:10pt;
+	border
+}
+
+/* MISCELLANEOUS  */
+
+.requesttable {
+	
+	width: 500px;
+	margin:auto;
+	padding:5px;
+	font-family:arial, helvetica, sans-serif;
+	font-size:10pt;
+	align:center;
+}
+
+.pagetitle {
+	font-family: arial, helvetica, sans-serif;
+	font-size:16pt;
+	font-weight: bold;
+	text-align: center;
+}
+
+.compliancebutton {
+	font-family:arial, helvetica, sans-serif;
+	font-size: 12pt;
+	border: 3px solid #4f81bd;
+	margin:4px;
+	padding:3px;
+	
+}
+
+.compliancebutton a:hover {
+	background-color:#4f81bd;
+	color:fff;
+	text-decoration:none;
+	
+}
+.compliancebutton a {
+
+	text-decoration:none;
+}
+.complianceselected{
+	font-family:arial, helvetica, sans-serif;
+	font-size: 12pt;
+	border: 3px solid #4f81bd;
+
+	background-color:#4f81bd;
+	text-decoration: none;
+	color:fff;
+	margin:4px;
+	padding:3px;
+	
+}
+.signout {
+	position:absolute;
+	margin-right:10px;
+	margin-left:300px;
+}
+
+.breadcrumbs {
+	font-family: arial, helvetica, sans-serif;
+	font-size: 9pt;
+	margin-left:5px;
+}
+
+.dashscreensleft {
+	float:left;
+	margin-left:5px;
+	margin-top:2px;
+}
+
+.dashscreensright {
+	float:right;
+	margin-right:10px;
+
+}
+
+.dashscreen1 {
+	float:left;
+	margin-left:5px;
+	margin-top:2px;
+}
+
+.reporttolink {
+	background-color:#ebedf2;
+}
+
+/* Plain tables  */
+
+
+.plaintable {
+	background-color:#ffffff;
+	
+}
+.alert_textarea {
+	
+	rows:5;
+	wrap:hard;
+	resize:none;
+}
