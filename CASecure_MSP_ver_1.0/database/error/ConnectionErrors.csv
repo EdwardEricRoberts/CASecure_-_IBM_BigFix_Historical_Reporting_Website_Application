@@ -1,0 +1,38 @@
+,"Could not connect to BigFix Server.",6,"Could not resolve host: bigfix.internal.cassevern.co","BigFix Server cURL","2020-04-30 10:43:31-0700",InventoryReport.php,"C:\Bitnami\wappstack-7.3.9-0\apache2\htdocs\CASecure_MSP_ver_1.0\proxies",http://localhost/CASecure_MSP_ver_1.0/proxies/InventoryReport.php?user=APIAdmin&pass=AllieCat7&serv=bigfix.internal.cassevern.co&cg=All%20Machines
+,"Issue with BigFix Relevance Code.",,"The operator ""idof"" is not defined.","BigFix Relevance","2020-04-30 10:43:39-0700",InventoryReport.php,"C:\Bitnami\wappstack-7.3.9-0\apache2\htdocs\CASecure_MSP_ver_1.0\proxies",http://localhost/CASecure_MSP_ver_1.0/proxies/InventoryReport.php?user=APIAdmin&pass=AllieCat7&serv=bigfix.internal.cassevern.com&cg=All%20Machines
+257,"Failed to Connect to Database.",7,"SQLSTATE[08006] [7] could not connect to server: Connection refused (0x0000274D/10061)
+	Is the server running on host ""localhost"" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused (0x0000274D/10061)
+	Is the server running on host ""localhost"" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?","PDO Connection","2020-04-30 10:45:48-0700",logConnectionErrors.php,"C:\Bitnami\wappstack-7.3.9-0\apache2\htdocs\CASecure_MSP_ver_1.0\database\error",http://localhost/CASecure_MSP_ver_1.0/database/error/logConnectionErrors.php?cid=257
+,"Failed to Connect to Database.",7,"SQLSTATE[08006] [7] could not connect to server: Connection refused (0x0000274D/10061)
+	Is the server running on host ""localhost"" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused (0x0000274D/10061)
+	Is the server running on host ""localhost"" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?","PDO Connection","2020-05-07 05:30:49-0700",UpdateAlert.php,"C:\Bitnami\wappstack-7.3.9-0\apache2\htdocs\CASecure_MSP_ver_1.0\database\update",http://localhost/CASecure_MSP_ver_1.0/database/update/UpdateAlert.php?aid=15&cid=257&ugid=16&mess=Test%20for%20updating%20Alerts.&exp=2020-10-1&act=
+,"Failed to Connect to Database.",7,"SQLSTATE[08006] [7] could not connect to server: Connection refused (0x0000274D/10061)
+	Is the server running on host ""localhost"" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused (0x0000274D/10061)
+	Is the server running on host ""localhost"" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?","PDO Connection","2020-05-07 05:31:04-0700",UpdateAlert.php,"C:\Bitnami\wappstack-7.3.9-0\apache2\htdocs\CASecure_MSP_ver_1.0\database\update",http://localhost/CASecure_MSP_ver_1.0/database/update/UpdateAlert.php?aid=15&cid=257&ugid=16&mess=Test%20for%20updating%20Alerts.&exp=2020-10-1&act=
+257,"Failed to Connect to Database.",7,"SQLSTATE[08006] [7] could not connect to server: Connection refused (0x0000274D/10061)
+	Is the server running on host ""localhost"" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused (0x0000274D/10061)
+	Is the server running on host ""localhost"" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?","PDO Connection","2020-05-07 05:32:13-0700",UpdateAlert.php,"C:\Bitnami\wappstack-7.3.9-0\apache2\htdocs\CASecure_MSP_ver_1.0\database\update",http://localhost/CASecure_MSP_ver_1.0/database/update/UpdateAlert.php?aid=15&cid=257&ugid=16&mess=Test%20for%20updating%20Alerts.&exp=2020-10-1&act=
+257,"Failed to Connect to Database.",7,"SQLSTATE[08006] [7] could not connect to server: Connection refused (0x0000274D/10061)
+	Is the server running on host ""localhost"" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused (0x0000274D/10061)
+	Is the server running on host ""localhost"" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?","PDO Connection","2020-05-07 05:33:57-0700",UpdateAlert.php,"C:\Bitnami\wappstack-7.3.9-0\apache2\htdocs\CASecure_MSP_ver_1.0\database\update",http://localhost/CASecure_MSP_ver_1.0/database/update/UpdateAlert.php?aid=15&cid=257&ugid=16&mess=Test%20for%20updating%20Alerts.&exp=2020-10-1&act=
+257,"Failed to Connect to Database.",7,"SQLSTATE[08006] [7] could not connect to server: Connection refused (0x0000274D/10061)
+	Is the server running on host ""localhost"" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused (0x0000274D/10061)
+	Is the server running on host ""localhost"" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?","PDO Connection","2020-05-14 05:21:37-0700",UpdateUser.php,"C:\Bitnami\wappstack-7.3.9-0\apache2\htdocs\CASecure_MSP_ver_1.0\database\update",http://localhost/CASecure_MSP_ver_1.0/database/update/UpdateUser.php?uid=234&cid=257&pass=AllieCat7&wel=Eric&admin=true&bigfix=APIAdmin&email=ERoberts37@cassevern.com&ds=Enterprise%20Security&dcg=CAS%20Laptops
